@@ -58,4 +58,18 @@ one_day = 86400
 next_unix = last_unix + one_day
 
 print(df.head())
+
+for i in forecast_set:
+
+    next_date = datetime.datetime.fromtimestamp(next_unix)
+    next_unix += one_day
+    df.loc[next_date] = [np.nan for _ in range(len(df.columns)-1)] + [i]
+
+df['Adj. Close'].plot()
+df['Forecast'].plot()
+plt.legend(loc=4)
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.show()
+
     
